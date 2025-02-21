@@ -1,4 +1,4 @@
-package com.example.raazassigment.ui.theme
+package com.example.raazassigment.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
