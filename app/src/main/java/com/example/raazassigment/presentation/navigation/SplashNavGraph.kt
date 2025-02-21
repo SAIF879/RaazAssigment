@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.raazassigment.presentation.ui.splashScreen.SplashScreen
 
 fun NavGraphBuilder.splashNavGraph(navController: NavController) {
     navigation(
@@ -11,8 +12,8 @@ fun NavGraphBuilder.splashNavGraph(navController: NavController) {
         startDestination = SplashScreens.SplashScreen.route
     ) {
         composable(route = SplashScreens.SplashScreen.route) {
-          //  SplashScreen(navController)
-            TODO("SPLASH SCREEN IMPL")
+            SplashScreen(navController)
+
         }
     }
 }
