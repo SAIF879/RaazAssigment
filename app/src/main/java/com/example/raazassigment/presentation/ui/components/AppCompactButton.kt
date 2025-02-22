@@ -1,8 +1,5 @@
 package com.example.raazassigment.presentation.ui.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -13,7 +10,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AppCompactButton(label: String, onClick: () -> Unit) {
+fun AppCompactButton(label: String, color: Color = Color.Black, modifier: Modifier, onClick: () -> Unit ) {
     Button(
         onClick = {
             onClick.invoke()
@@ -23,14 +20,12 @@ fun AppCompactButton(label: String, onClick: () -> Unit) {
             disabledElevation = 0.dp
         ),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Black
+            containerColor = color
         ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(70.dp)
-            .padding(10.dp),
+        modifier = modifier,
+
         shape = RectangleShape
     ) {
-        Text(text = label, color = Color.White)
+        Text(text = label, color = if(color==Color.Black) Color.White else Color.Black)
     }
 }
