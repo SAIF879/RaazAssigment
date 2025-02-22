@@ -33,7 +33,7 @@ fun SplashScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Blog Application",
+            text = "Raaz Application",
             color = Color.White,
             style = MaterialTheme.typography.headlineMedium,
             maxLines = 1

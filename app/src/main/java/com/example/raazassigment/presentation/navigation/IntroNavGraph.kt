@@ -1,5 +1,6 @@
 package com.example.raazassigment.presentation.navigation
 
+import IntroScreen
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,11 +12,11 @@ fun NavGraphBuilder.introNavGraph(navController: NavController) {
         startDestination = IntroScreens.IntroductionScreen.route
     ) {
         composable(route = IntroScreens.IntroductionScreen.route) {
-            TODO("INTRODUCTION SCREEN IMPL")
+            IntroScreen(navController)
         }
     }
 }
 
 sealed class IntroScreens(val route: String) {
-    data object IntroductionScreen : SplashScreens(route = "introduction_screen")
+    data object IntroductionScreen : IntroScreens(route = "introduction_screen")
 }
