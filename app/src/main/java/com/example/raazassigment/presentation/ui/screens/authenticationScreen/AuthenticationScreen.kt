@@ -97,33 +97,41 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,  
                     .height(70.dp)
                     .padding(10.dp)
             ) {
-                if (isFromLogin) {
-                    viewModel.loginUser(
-                        email.value,
-                        passWord.value,
-                        onSuccess = {
-                            Toast.makeText(context, "Logged In Successfully", Toast.LENGTH_SHORT)
-                                .show()
-                            navController.navigate("next_screen")
-
-                        },
-                        onError = {
-                            Toast.makeText(
-                                context,
-                                "Invalid Credentials",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                when {
+                    !email.value.isValidEmail() -> {
+                        Toast.makeText(context, "Invalid email format", Toast.LENGTH_SHORT).show()
+                    }
+                    !passWord.value.isValidPassword() -> {
+                        Toast.makeText(context, "Password must be at least 8 characters with a mix of uppercase, lowercase, digits, and symbols", Toast.LENGTH_SHORT).show()
+                    }
+                    isFromLogin -> {
+                        viewModel.loginUser(
+                            email.value,
+                            passWord.value,
+                            onSuccess = {
+                                Toast.makeText(context, "Logged In Successfully", Toast.LENGTH_SHORT).show()
+                                navController.navigate("next_screen")
+                            },
+                            onError = {
+                                Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_SHORT).show()
+                            }
+                        )
+                    }
+                    else -> {
+                        viewModel.registerUser(email.value, passWord.value) {
+                            Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT).show()
                         }
-                    )
-                } else {
-                    viewModel.registerUser(email.value, passWord.value) {
-                        Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT)
-                            .show()
                     }
                 }
-
-
             }
         }
     }
 }
+
+fun String.isValidEmail(): Boolean {
+    return Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$").matches(this)
+}
+fun String.isValidPassword(): Boolean {
+    return this.length >= 8
+}
+
