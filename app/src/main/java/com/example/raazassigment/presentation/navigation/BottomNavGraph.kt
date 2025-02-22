@@ -6,18 +6,22 @@ import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.raazassigment.presentation.ui.screens.homeScreen.HomeScreen
 import com.example.raazassigment.presentation.ui.screens.mainScreen.BottomBarScreens
+import com.example.raazassigment.presentation.ui.screens.profileScreen.ProfileScreen
+import com.example.raazassigment.presentation.ui.screens.searchScreen.SearchScreen
+
 @Composable
 fun BottomNavGraph(navHostController: NavHostController) {
-    NavHost(navController = navHostController, startDestination = BottomBarScreens.Profile.route) {
+    NavHost(navController = navHostController, startDestination = BottomBarScreens.Home.route) {
         composable(BottomBarScreens.Search.route) {
-            //SearchScreen(navController)
+           SearchScreen()
         }
         composable(BottomBarScreens.Home.route) {
-           // HomeScreen(navController)
+        HomeScreen()
         }
         composable(BottomBarScreens.Profile.route) {
-          //  ProfileScreen(navController)
+            ProfileScreen()
         }
     }
 }

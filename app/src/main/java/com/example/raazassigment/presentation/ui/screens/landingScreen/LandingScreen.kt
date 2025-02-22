@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.BottomAppBar
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.raazassigment.presentation.navigation.AuthenticationScreens
 import com.example.raazassigment.presentation.ui.components.AppCompactButton
+import com.example.raazassigment.presentation.ui.components.LocalPngImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,8 +85,11 @@ fun LandingScreen(navController: NavController, landingScreenEvents: (LandingScr
                 .background(Color(0xff0F3141))
                 .padding(paddingValues)
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
+
+            LocalPngImage(modifier = Modifier.size(200.dp))
 
         }
     }
