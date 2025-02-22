@@ -1,11 +1,16 @@
 package com.example.raazassigment.presentation.ui.screens.mainScreen
 
 import android.annotation.SuppressLint
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.raazassigment.presentation.navigation.BottomNavGraph
@@ -13,23 +18,26 @@ import com.example.raazassigment.presentation.ui.components.BottomBar
 
 sealed class BottomBarScreens(
     val route: String,
-    val title: String
+    val title: String,
+    val icon: ImageVector
 ) {
-    data  object Search : BottomBarScreens(
+    data object Search : BottomBarScreens(
         route = "search",
-        title = "Market"
+        title = "Search",
+        icon = Icons.Default.Search
     )
 
     data object Home : BottomBarScreens(
         route = "home",
-        title = "History"
+        title = "Home",
+        icon = Icons.Default.Home
     )
 
     data object Profile : BottomBarScreens(
         route = "profile",
-        title = "Search"
+        title = "Profile",
+        icon = Icons.Default.Person
     )
-
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
