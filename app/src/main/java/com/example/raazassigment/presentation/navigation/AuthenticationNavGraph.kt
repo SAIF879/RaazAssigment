@@ -9,6 +9,7 @@ import androidx.navigation.navigation
 import com.example.raazassigment.presentation.ui.screens.authenticationScreen.AuthenticationScreen
 import com.example.raazassigment.presentation.ui.screens.landingScreen.LandingScreen
 import com.example.raazassigment.presentation.ui.screens.landingScreen.LandingScreenEvents
+import com.example.raazassigment.presentation.ui.screens.mainScreen.MainScreen
 
 fun NavGraphBuilder.authenticationNavGraph(navController: NavController) {
     navigation(
@@ -24,11 +25,6 @@ fun NavGraphBuilder.authenticationNavGraph(navController: NavController) {
                }
             }
         }
-//        composable(route = AuthenticationScreens.AuthenticationScreen.route +"/isLogin", arguments = listOf(
-//            navArgument("isLogin"){type= NavType.BoolType}
-//        )) {backStackEntry->
-//     AuthenticationScreen(navController , backStackEntry.arguments?.getBoolean("isLogin") ?: false)
-//        }
         composable(
             route = AuthenticationScreens.AuthenticationScreen.route + "/{isLogin}",
             arguments = listOf(navArgument("isLogin") { type = NavType.BoolType })
@@ -37,11 +33,18 @@ fun NavGraphBuilder.authenticationNavGraph(navController: NavController) {
             AuthenticationScreen(navController, isLogin)
         }
 
+        composable(
+            route = AuthenticationScreens.MainScreen.route,
+        ) {
+            MainScreen()
+        }
+
     }
 }
 
 sealed class AuthenticationScreens(val route: String) {
     data object LandingScreen : AuthenticationScreens(route = "landing_screen")
     data object AuthenticationScreen : AuthenticationScreens(route = "authentication_screen")
+    data object MainScreen  : AuthenticationScreens(route = "main_screen")
 
 }

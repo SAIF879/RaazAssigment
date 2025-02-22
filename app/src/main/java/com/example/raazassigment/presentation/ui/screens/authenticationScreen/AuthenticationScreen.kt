@@ -30,8 +30,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.raazassigment.presentation.navigation.AuthenticationScreens
 import com.example.raazassigment.presentation.ui.components.AppCompactButton
 import com.example.raazassigment.presentation.ui.components.InputBox
+import com.example.raazassigment.presentation.ui.screens.mainScreen.MainScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,7 +112,7 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,  
                             passWord.value,
                             onSuccess = {
                                 Toast.makeText(context, "Logged In Successfully", Toast.LENGTH_SHORT).show()
-                                navController.navigate("next_screen")
+                                navController.navigate(AuthenticationScreens.MainScreen.route)
                             },
                             onError = {
                                 Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_SHORT).show()
@@ -120,6 +122,7 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,  
                     else -> {
                         viewModel.registerUser(email.value, passWord.value) {
                             Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT).show()
+                                navController.navigate(AuthenticationScreens.MainScreen.route)
                         }
                     }
                 }

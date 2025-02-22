@@ -9,7 +9,7 @@ object NavGraph{
     const val SPLASH = "splash"
     const val INTRO = "intro"
     const val AUTHENTICATION = "authentication"
-    const val HOME = "home"
+    const val MAIN = "main"
 }
 
 @Composable
