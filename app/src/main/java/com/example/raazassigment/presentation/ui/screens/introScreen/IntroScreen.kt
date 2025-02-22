@@ -46,9 +46,11 @@ fun IntroScreen(navController: NavController) {
                 title = { /* Empty or add a title here if needed */ },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xffD3E7F1)),
                 actions = {
-                    SkipButton {
-                    navController.navigate(NavGraph.AUTHENTICATION)
-                    }
+                    if (currentQuestionIndex == 0) { // Show Skip Button only for the first question
+                        SkipButton {
+                            navController.navigate(NavGraph.AUTHENTICATION)
+                        }
+                        }
                 }
             )
         }

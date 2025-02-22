@@ -31,21 +31,6 @@ import com.example.raazassigment.presentation.ui.components.LocalPngImage
 @Composable
 fun LandingScreen(navController: NavController, landingScreenEvents: (LandingScreenEvents)->Unit) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { /* Add a title if needed */ },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White),
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color.Black
-                        )
-                    }
-                }
-            )
-        },
         bottomBar = {
             BottomAppBar(
                 containerColor = Color.White
