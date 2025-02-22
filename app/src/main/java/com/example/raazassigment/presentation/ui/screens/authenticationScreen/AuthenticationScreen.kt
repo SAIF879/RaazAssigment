@@ -32,11 +32,12 @@ import com.example.raazassigment.presentation.ui.components.InputBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthenticationScreen(navController: NavController) {
+fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean) {
     val email = remember {
         mutableStateOf("")
     }
     val passWord = remember {
+        
         mutableStateOf("")
     }
     Scaffold(
@@ -73,7 +74,7 @@ fun AuthenticationScreen(navController: NavController) {
                 horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    text = "Register",
+                    text = if (isFromLogin == true) "Log In" else "Register",
                     fontSize = 30.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.Light,

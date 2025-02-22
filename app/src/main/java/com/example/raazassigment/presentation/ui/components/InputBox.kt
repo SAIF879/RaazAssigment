@@ -24,14 +24,17 @@ fun InputBox(text: MutableState<String> , label: String) {
             Text(
                 text = label,
                 color = Color.Black, // Label text color
-                fontWeight = FontWeight.Medium,
-                fontSize = 20.sp
+                fontWeight = FontWeight.Light,
+                fontSize = 15.sp
             )
+        },
+        placeholder = {
+            Text(text = "Enter $label", color = Color.Black, fontSize = 20.sp)
         },
         textStyle = androidx.compose.ui.text.TextStyle(
             color = Color.Black, // Input text color
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Light
         ),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             containerColor = Color.White, // Background color

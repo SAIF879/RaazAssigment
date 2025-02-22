@@ -27,7 +27,7 @@ import com.example.raazassigment.presentation.ui.components.AppCompactButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LandingScreen(navController: NavController) {
+fun LandingScreen(navController: NavController, landingScreenEvents: (LandingScreenEvents)->Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -59,7 +59,7 @@ fun LandingScreen(navController: NavController) {
                             .weight(0.5f)
                             .padding(5.dp)
                     ) {
-                        navController.navigate(AuthenticationScreens.AuthenticationScreen.route)
+                        navController.navigate(AuthenticationScreens.AuthenticationScreen.route + "/${true}")
 
                     }
 
@@ -69,7 +69,7 @@ fun LandingScreen(navController: NavController) {
                             .weight(0.5f)
                             .padding(5.dp)
                     ) {
-                        navController.navigate(AuthenticationScreens.AuthenticationScreen.route)
+                        navController.navigate(AuthenticationScreens.AuthenticationScreen.route + "/${false}")
                     }
 
 
