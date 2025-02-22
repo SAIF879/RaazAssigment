@@ -1,10 +1,11 @@
 package com.example.raazassigment.presentation.navigation
 
-import IntroScreen
+
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.raazassigment.presentation.ui.screens.introScreen.IntroScreen
 
 fun NavGraphBuilder.introNavGraph(navController: NavController) {
     navigation(

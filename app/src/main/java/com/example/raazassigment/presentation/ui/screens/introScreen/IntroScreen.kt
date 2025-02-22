@@ -1,4 +1,4 @@
-import android.widget.Toast
+package com.example.raazassigment.presentation.ui.screens.introScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -7,11 +7,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.raazassigment.presentation.navigation.NavGraph
 import com.example.raazassigment.presentation.ui.components.OptionButton
 import com.example.raazassigment.presentation.ui.components.SkipButton
 
@@ -39,7 +39,6 @@ fun IntroScreen(navController: NavController) {
 
     var currentQuestionIndex by remember { mutableIntStateOf(0) }
     val currentQuestion = questions[currentQuestionIndex]
-    val context = LocalContext.current // Accessing context for Toast
 
     Scaffold(
         topBar = {
@@ -48,7 +47,7 @@ fun IntroScreen(navController: NavController) {
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xffD3E7F1)),
                 actions = {
                     SkipButton {
-                        // Handle skip logic (e.g., navigate to the next screen)
+                    navController.navigate(NavGraph.AUTHENTICATION)
                     }
                 }
             )
@@ -75,8 +74,7 @@ fun IntroScreen(navController: NavController) {
                     if (currentQuestionIndex < questions.size - 1) {
                         currentQuestionIndex++
                     } else {
-                        // Show toast message on the last question
-                        Toast.makeText(context, "You have completed the questions!", Toast.LENGTH_SHORT).show()
+                        navController.navigate(NavGraph.AUTHENTICATION)
                     }
                 }
             }

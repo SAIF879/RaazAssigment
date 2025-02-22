@@ -22,8 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun OptionButton(option : String,onClick: () -> Unit) {
-    Button(onClick = { onClick.invoke() },
+fun OptionButton(option: String, onClick: () -> Unit) {
+    Button(
+        onClick = { onClick.invoke() },
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xffECE6F0)),
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -32,15 +33,19 @@ fun OptionButton(option : String,onClick: () -> Unit) {
         elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 10.dp)
 
     ) {
-        Row(modifier = Modifier.fillMaxWidth() , verticalAlignment = Alignment.CenterVertically , horizontalArrangement = Arrangement.Center) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
             Icon(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "Edit",
                 tint = Color(0xff65558F),
-                modifier = Modifier.size(20.dp) // Adjust size if needed
+                modifier = Modifier.size(20.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp)) // Space between icon and text
-            Text(text = option, color =Color(0xff65558F))
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(text = option, color = Color(0xff65558F))
         }
     }
 }

@@ -28,13 +28,13 @@ fun SplashScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.Black),
+            .background(color = Color(0xffD3E7F1)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Raaz Application",
-            color = Color.White,
+            color = Color.Black,
             style = MaterialTheme.typography.headlineMedium,
             maxLines = 1
         )

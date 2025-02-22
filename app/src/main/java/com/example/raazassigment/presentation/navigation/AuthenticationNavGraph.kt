@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.raazassigment.presentation.ui.screens.authenticationScreen.AuthenticationScreen
 
 fun NavGraphBuilder.authenticationNavGraph(navController: NavController) {
     navigation(
@@ -11,7 +12,7 @@ fun NavGraphBuilder.authenticationNavGraph(navController: NavController) {
         startDestination = AuthenticationScreens.AuthenticationScreen.route
     ) {
         composable(route = AuthenticationScreens.AuthenticationScreen.route) {
-        //    TODO("AUTHENTICATION  SCREEN IMPL")
+     AuthenticationScreen(navController)
         }
     }
 }
