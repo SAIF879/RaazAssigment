@@ -1,5 +1,6 @@
 package com.example.raazassigment.presentation.ui.screens.authenticationScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,23 +24,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.raazassigment.presentation.ui.components.AppCompactButton
 import com.example.raazassigment.presentation.ui.components.InputBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean) {
+fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,     viewModel: AuthViewModel = hiltViewModel()) {
     val email = remember {
         mutableStateOf("")
     }
     val passWord = remember {
-        
+
         mutableStateOf("")
     }
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -74,7 +78,7 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean) {
                 horizontalArrangement = Arrangement.Start
             ) {
                 Text(
-                    text = if (isFromLogin == true) "Log In" else "Register",
+                    text = if (isFromLogin) "Log In" else "Register",
                     fontSize = 30.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.Light,
@@ -85,12 +89,41 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean) {
 
             InputBox(email, "Email")
             InputBox(passWord, "Password")
-            AppCompactButton(label = "Next" , modifier = Modifier.fillMaxWidth()
-                .height(70.dp)
-                .padding(10.dp),) {
-                
-            }
 
+
+            AppCompactButton(
+                label = if(isFromLogin) "Log In" else "Next"
+                , modifier = Modifier.fillMaxWidth()
+                    .height(70.dp)
+                    .padding(10.dp)
+            ) {
+                if (isFromLogin) {
+                    viewModel.loginUser(
+                        email.value,
+                        passWord.value,
+                        onSuccess = {
+                            Toast.makeText(context, "Logged In Successfully", Toast.LENGTH_SHORT)
+                                .show()
+                            navController.navigate("next_screen")
+
+                        },
+                        onError = {
+                            Toast.makeText(
+                                context,
+                                "Invalid Credentials",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    )
+                } else {
+                    viewModel.registerUser(email.value, passWord.value) {
+                        Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+
+
+            }
         }
     }
 }
