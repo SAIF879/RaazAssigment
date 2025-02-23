@@ -11,6 +11,7 @@ import com.example.raazassigment.data.repo.UserRepositoryImpl
 import com.example.raazassigment.domain.repo.QuizRepository
 import com.example.raazassigment.domain.repo.UserRepository
 import com.example.raazassigment.domain.usecase.AuthenticateUserUseCase
+import com.example.raazassigment.domain.usecase.GetQuizResponsesUseCase
 import com.example.raazassigment.domain.usecase.SaveQuizResponseUseCase
 import dagger.Module
 import dagger.Provides
@@ -61,5 +62,10 @@ object AppModule {
     @Provides
     fun provideQuizUseCase(repository: QuizRepository): SaveQuizResponseUseCase {
         return SaveQuizResponseUseCase(repository)
+    }
+
+    @Provides
+    fun provideGetQuizUseCase(repository: QuizRepository): GetQuizResponsesUseCase {
+        return GetQuizResponsesUseCase(repository)
     }
 }

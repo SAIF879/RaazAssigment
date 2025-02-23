@@ -1,88 +1,141 @@
 package com.example.raazassigment.presentation.ui.screens.profileScreen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.raazassigment.R
+import com.example.raazassigment.domain.model.QuizResponseEntity
 import com.example.raazassigment.presentation.ui.components.AppCompactButton
+import com.example.raazassigment.presentation.util.showToast
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
+    val context = LocalContext.current
+    val quizResponses by viewModel.quizResponses.collectAsState()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Welcome to Raaz App") },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White)
+            )
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(10.dp)
+                .background(Color.White),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Profile Section
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .background(Color.Black),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_account),
+                        contentDescription = "Profile Icon",
+                        modifier = Modifier.size(60.dp),
+                        tint = Color.White
+                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "email here",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .background(Color.White)
+                    .padding(vertical = 10.dp)
+            ) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    item {
+                        Text(
+                            text = "DETAILS WE KNOW ABOUT YOU",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black,
+                            modifier = Modifier.padding(10.dp)
+                        )
+                    }
+                    items(quizResponses) { response ->
+                        QuizItem(response)
+                    }
+                }
+            }
+
+            // Bottom Section
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "BROWSE YOUR REPORTS",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                AppCompactButton(
+                    label = "SEE MORE",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    color = Color.White,
+                ) {
+                    context.showToast("Coming Soon!")
+                }
+                Spacer(modifier = Modifier.size(100.dp))
+            }
+        }
+    }
+}
 
 @Composable
-fun ProfileScreen() {
-Column(modifier = Modifier.fillMaxSize() , verticalArrangement = Arrangement.SpaceBetween , horizontalAlignment = Alignment.CenterHorizontally) {
+fun QuizItem(response: QuizResponseEntity) {
     Column(
         modifier = Modifier
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
+            .padding(5.dp)
+            .background(Color.LightGray, shape = MaterialTheme.shapes.medium)
+            .padding(10.dp)
     ) {
-        // Profile Icon
-        Icon(
-            imageVector = Icons.Default.AccountCircle,
-            contentDescription = "Profile Icon",
-            modifier = Modifier
-                .size(100.dp)
-                .background(Color.LightGray, shape = CircleShape)
-                .padding(16.dp),
-            tint = Color.Black
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // Email Field
-        Text(
-            text = "Email:",
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        // Actual Email (Replace with dynamic email)
-        Text(
-            text = "user@example.com", // Change this to actual email from ViewModel
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium,
-            color = Color.Black
-        )
-}
-
-Column(
-    modifier = Modifier
-        .padding(16.dp),
-    verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally
-) {
-
-    Text(text = "Browse your reports",    fontSize = 18.sp,
-        fontWeight = FontWeight.Bold,
-        color = Color.Gray)
-
-    AppCompactButton(label = "SEE MORE", modifier = Modifier
-        .fillMaxWidth()
-        .padding(10.dp)
-        .height(50.dp) , color = Color.White ) {
-
-    }
-    
-    Spacer(modifier = Modifier.size(150.dp))
-}
+        Text(text = "Question: ${response.question}", fontWeight = FontWeight.Bold)
+        Text(text = "Selected Option: ${response.selectedOption}", fontSize = 14.sp)
     }
 }
