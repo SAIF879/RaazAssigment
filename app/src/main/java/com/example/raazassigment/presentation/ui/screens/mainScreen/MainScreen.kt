@@ -16,29 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.raazassigment.presentation.navigation.BottomNavGraph
 import com.example.raazassigment.presentation.ui.components.BottomBar
 
-sealed class BottomBarScreens(
-    val route: String,
-    val title: String,
-    val icon: ImageVector
-) {
-    data object Search : BottomBarScreens(
-        route = "search",
-        title = "Search",
-        icon = Icons.Default.Search
-    )
 
-    data object Home : BottomBarScreens(
-        route = "home",
-        title = "Home",
-        icon = Icons.Default.Home
-    )
-
-    data object Profile : BottomBarScreens(
-        route = "profile",
-        title = "Profile",
-        icon = Icons.Default.Person
-    )
-}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

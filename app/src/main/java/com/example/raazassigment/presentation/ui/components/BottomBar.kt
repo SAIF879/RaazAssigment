@@ -3,11 +3,17 @@ package com.example.raazassigment.presentation.ui.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
@@ -16,13 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.raazassigment.presentation.ui.screens.mainScreen.BottomBarScreens
+
 
 @Composable
 fun BottomBar(navController: NavHostController, bottomBarState: MutableState<Boolean>) {
@@ -71,7 +77,6 @@ fun BottomBarScreenContent(
                 val selected =
                     currentDestination?.hierarchy?.any { it.route == menuItem.route } == true
 
-                // Adding each item
                 NavigationBarItem(
                     selected = selected,
                     onClick = {
@@ -86,7 +91,7 @@ fun BottomBarScreenContent(
                     },
                     icon = {
                         Icon(
-                            imageVector = menuItem.icon,
+                            imageVector = if (selected) menuItem.selectedIcon else menuItem.unselectedIcon,
                             contentDescription = menuItem.title
                         )
                     },
@@ -99,5 +104,30 @@ fun BottomBarScreenContent(
         }
     }
 }
+sealed class BottomBarScreens(
+    val route: String,
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector
+) {
+    data object Search : BottomBarScreens(
+        route = "search",
+        title = "Search",
+        selectedIcon = Icons.Filled.Search,
+        unselectedIcon = Icons.Outlined.Search
+    )
 
+    data object Home : BottomBarScreens(
+        route = "home",
+        title = "Home",
+        selectedIcon = Icons.Filled.Home,
+        unselectedIcon = Icons.Outlined.Home
+    )
 
+    data object Profile : BottomBarScreens(
+        route = "profile",
+        title = "Profile",
+        selectedIcon = Icons.Filled.Person,
+        unselectedIcon = Icons.Outlined.Person
+    )
+}

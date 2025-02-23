@@ -93,6 +93,8 @@ dependencies {
     implementation (libs.androidx.room.ktx)
     implementation (libs.androidx.room.runtime)
     kapt (libs.androidx.room.compiler)
+
+
 }
 
 // Allow references to generated code

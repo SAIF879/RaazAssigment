@@ -1,4 +1,5 @@
 package com.example.raazassigment.presentation.ui.screens.introScreen
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -11,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.raazassigment.domain.util.questions
 import com.example.raazassigment.presentation.navigation.NavGraph
 import com.example.raazassigment.presentation.ui.components.OptionButton
 import com.example.raazassigment.presentation.ui.components.SkipButton
@@ -18,24 +20,7 @@ import com.example.raazassigment.presentation.ui.components.SkipButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IntroScreen(navController: NavController) {
-    val questions = listOf(
-        Question(
-            text = "What is your favourite colour?",
-            options = listOf("Blue", "Red", "Green")
-        ),
-        Question(
-            text = "Do you have a pet?",
-            options = listOf("Yes", "No")
-        ),
-        Question(
-            text = "Which is your most visited city?",
-            options = listOf("Mumbai", "Delhi", "Pune"),
-        ),
-        Question(
-            text = "When did you graduate?",
-            options = listOf("2021", "2022", "2023")
-        )
-    )
+
 
     var currentQuestionIndex by remember { mutableIntStateOf(0) }
     val currentQuestion = questions[currentQuestionIndex]
@@ -43,14 +28,15 @@ fun IntroScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { /* Empty or add a title here if needed */ },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xffD3E7F1)),
+                title = { },
+                colors = TopAppBarDefaults.
+                topAppBarColors(containerColor = Color(0xffD3E7F1)),
                 actions = {
-                    if (currentQuestionIndex == 0) { // Show Skip Button only for the first question
+                    if (currentQuestionIndex == 0) {
                         SkipButton {
                             navController.navigate(NavGraph.AUTHENTICATION)
                         }
-                        }
+                    }
                 }
             )
         }
@@ -83,8 +69,3 @@ fun IntroScreen(navController: NavController) {
         }
     }
 }
-
-data class Question(
-    val text: String,
-    val options: List<String>
-)

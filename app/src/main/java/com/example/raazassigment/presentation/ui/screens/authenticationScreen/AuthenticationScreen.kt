@@ -1,6 +1,5 @@
 package com.example.raazassigment.presentation.ui.screens.authenticationScreen
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.*
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,11 +32,17 @@ import androidx.navigation.NavController
 import com.example.raazassigment.presentation.navigation.AuthenticationScreens
 import com.example.raazassigment.presentation.ui.components.AppCompactButton
 import com.example.raazassigment.presentation.ui.components.InputBox
-import com.example.raazassigment.presentation.ui.screens.mainScreen.MainScreen
+import com.example.raazassigment.presentation.util.isValidEmail
+import com.example.raazassigment.presentation.util.isValidPassword
+import com.example.raazassigment.presentation.util.showToast
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,     viewModel: AuthViewModel = hiltViewModel()) {
+fun AuthenticationScreen(
+    navController: NavController,
+    isFromLogin: Boolean,
+    viewModel: AuthViewModel = hiltViewModel()
+) {
     val email = remember {
         mutableStateOf("")
     }
@@ -90,39 +95,42 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,  
 
 
             InputBox(email, "Email")
-            InputBox(passWord, "Password")
+            InputBox(passWord, "Password" , true)
 
 
             AppCompactButton(
-                label = if(isFromLogin) "Log In" else "Next"
-                , modifier = Modifier.fillMaxWidth()
+                label = if (isFromLogin) "Log In" else "Next", modifier = Modifier
+                    .fillMaxWidth()
                     .height(70.dp)
                     .padding(10.dp)
             ) {
                 when {
                     !email.value.isValidEmail() -> {
-                        Toast.makeText(context, "Invalid email format", Toast.LENGTH_SHORT).show()
+                        context.showToast("Invalid email format ")
                     }
+
                     !passWord.value.isValidPassword() -> {
-                        Toast.makeText(context, "Password must be at least 8 characters with a mix of uppercase, lowercase, digits, and symbols", Toast.LENGTH_SHORT).show()
+                        context.showToast("Password must be at least 8 characters ")
                     }
+
                     isFromLogin -> {
                         viewModel.loginUser(
                             email.value,
                             passWord.value,
                             onSuccess = {
-                                Toast.makeText(context, "Logged In Successfully", Toast.LENGTH_SHORT).show()
+                                context.showToast("Logged In Successfully ")
                                 navController.navigate(AuthenticationScreens.MainScreen.route)
                             },
                             onError = {
-                                Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_SHORT).show()
+                                context.showToast("Invalid Credentials ")
                             }
                         )
                     }
+
                     else -> {
                         viewModel.registerUser(email.value, passWord.value) {
-                            Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT).show()
-                                navController.navigate(AuthenticationScreens.MainScreen.route)
+                            context.showToast("Registered Successfully")
+                            navController.navigate(AuthenticationScreens.MainScreen.route)
                         }
                     }
                 }
@@ -131,10 +139,5 @@ fun AuthenticationScreen(navController: NavController , isFromLogin : Boolean,  
     }
 }
 
-fun String.isValidEmail(): Boolean {
-    return Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$").matches(this)
-}
-fun String.isValidPassword(): Boolean {
-    return this.length >= 8
-}
+
 
