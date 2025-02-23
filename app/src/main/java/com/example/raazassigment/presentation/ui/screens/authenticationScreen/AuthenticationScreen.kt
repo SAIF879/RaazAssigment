@@ -119,6 +119,7 @@ fun AuthenticationScreen(
                             passWord.value,
                             onSuccess = {
                                 context.showToast("Logged In Successfully ")
+                                viewModel.saveEmail(email.value)
                                 navController.navigate(AuthenticationScreens.MainScreen.route)
                             },
                             onError = {

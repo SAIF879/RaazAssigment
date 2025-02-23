@@ -46,6 +46,7 @@ fun LandingScreen(navController: NavController, landingScreenEvents: (LandingScr
                             .weight(0.5f)
                             .padding(5.dp)
                     ) {
+
                         navController.navigate(AuthenticationScreens.AuthenticationScreen.route + "/${true}")
 
                     }

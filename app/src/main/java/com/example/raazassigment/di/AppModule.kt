@@ -13,9 +13,11 @@ import com.example.raazassigment.domain.repo.UserRepository
 import com.example.raazassigment.domain.usecase.AuthenticateUserUseCase
 import com.example.raazassigment.domain.usecase.GetQuizResponsesUseCase
 import com.example.raazassigment.domain.usecase.SaveQuizResponseUseCase
+import com.example.raazassigment.presentation.util.UserPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -67,5 +69,11 @@ object AppModule {
     @Provides
     fun provideGetQuizUseCase(repository: QuizRepository): GetQuizResponsesUseCase {
         return GetQuizResponsesUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserPreferences(@ApplicationContext context: Context): UserPreferences {
+        return UserPreferences(context)
     }
 }

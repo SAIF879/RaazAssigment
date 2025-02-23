@@ -94,7 +94,7 @@ dependencies {
     implementation (libs.androidx.room.runtime)
     kapt (libs.androidx.room.compiler)
 
-
+    implementation( "androidx.datastore:datastore-preferences:1.0.0")
 }
 
 // Allow references to generated code

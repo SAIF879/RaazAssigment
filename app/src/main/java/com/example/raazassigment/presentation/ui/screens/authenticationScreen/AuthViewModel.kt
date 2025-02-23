@@ -3,6 +3,7 @@ package com.example.raazassigment.presentation.ui.screens.authenticationScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.raazassigment.domain.usecase.AuthenticateUserUseCase
+import com.example.raazassigment.presentation.util.UserPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -10,6 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
+    private val userPreferences: UserPreferences,
     private val authenticateUserUseCase: AuthenticateUserUseCase
 ) : ViewModel() {
 
@@ -17,6 +19,12 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             authenticateUserUseCase.registerUser(email, password)
             onSuccess()
+        }
+    }
+
+    fun saveEmail(email: String) {
+        viewModelScope.launch {
+            userPreferences.saveUserEmail(email)
         }
     }
 

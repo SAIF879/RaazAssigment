@@ -27,6 +27,7 @@ import com.example.raazassigment.presentation.util.showToast
 fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val quizResponses by viewModel.quizResponses.collectAsState()
+    val userEmail by viewModel.userEmail.collectAsState()
 
     Scaffold(
         topBar = {
@@ -66,7 +67,7 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = "email here",
+                    text = userEmail?:"NULL",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium
                 )
