@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.raazassigment.domain.util.questions
 import com.example.raazassigment.presentation.navigation.NavGraph
@@ -19,9 +20,7 @@ import com.example.raazassigment.presentation.ui.components.SkipButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IntroScreen(navController: NavController) {
-
-
+fun IntroScreen(navController: NavController, viewModel: QuizViewModel = hiltViewModel()) {
     var currentQuestionIndex by remember { mutableIntStateOf(0) }
     val currentQuestion = questions[currentQuestionIndex]
 
@@ -29,21 +28,17 @@ fun IntroScreen(navController: NavController) {
         topBar = {
             TopAppBar(
                 title = { },
-                colors = TopAppBarDefaults.
-                topAppBarColors(containerColor = Color(0xffD3E7F1)),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xffD3E7F1)),
                 actions = {
                     if (currentQuestionIndex == 0) {
-                        SkipButton {
-                            navController.navigate(NavGraph.AUTHENTICATION)
-                        }
+                        SkipButton { navController.navigate(NavGraph.AUTHENTICATION) }
                     }
                 }
             )
         }
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
                 .background(Color(0xffD3E7F1))
                 .padding(paddingValues)
                 .padding(16.dp),
@@ -59,7 +54,10 @@ fun IntroScreen(navController: NavController) {
 
             currentQuestion.options.forEach { option ->
                 OptionButton(option = option) {
-                    if (currentQuestionIndex < questions.size - 1) {
+                    val isLast = currentQuestionIndex == questions.size - 1
+                    viewModel.saveQuizResponse(currentQuestion.text, option, isLast)
+
+                    if (!isLast) {
                         currentQuestionIndex++
                     } else {
                         navController.navigate(NavGraph.AUTHENTICATION)
