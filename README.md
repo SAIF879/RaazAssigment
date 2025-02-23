@@ -5,7 +5,6 @@ Raaz Assignment is a Jetpack Compose-based Android application implementing auth
 - **Architecture**: MVVM (Model-View-ViewModel)
 - **UI**: Jetpack Compose
 - **Dependency Injection**: Dagger Hilt
-- **Networking**: Retrofit
 - **Local Storage**: Room Database, DataStore Preferences
 - **Configuration Management**: TOML
 
@@ -49,9 +48,6 @@ cd RaazAssignment
 ### 2️⃣ Configure TOML File
 Modify `config.toml` for API endpoints and settings:
 ```toml
-[api]
-base_url = "https://api.example.com/"
-```
 
 ### 3️⃣ Run the App
 ```sh
