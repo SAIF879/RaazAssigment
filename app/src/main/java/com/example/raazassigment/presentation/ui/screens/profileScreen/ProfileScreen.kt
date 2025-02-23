@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.raazassigment.R
 import com.example.raazassigment.domain.model.QuizResponseEntity
 import com.example.raazassigment.presentation.ui.components.AppCompactButton
+import com.example.raazassigment.presentation.ui.components.QuizItem
 import com.example.raazassigment.presentation.util.showToast
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,20 +42,20 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(10.dp)
                 .background(Color.White),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Profile Section
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Box(
                     modifier = Modifier
                         .size(100.dp)
                         .clip(CircleShape)
+                        .padding(10.dp)
                         .background(Color.Black),
                     contentAlignment = Alignment.Center
                 ) {
@@ -77,6 +78,7 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
                 modifier = Modifier
                     .weight(1f)
                     .background(Color.White)
+                    .padding(10.dp)
                     .padding(vertical = 10.dp)
             ) {
                 LazyColumn(
@@ -101,7 +103,7 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
             // Bottom Section
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth() .padding(10.dp)
             ) {
                 Text(
                     text = "BROWSE YOUR REPORTS",
@@ -124,19 +126,5 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
                 Spacer(modifier = Modifier.size(100.dp))
             }
         }
-    }
-}
-
-@Composable
-fun QuizItem(response: QuizResponseEntity) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp)
-            .background(Color.LightGray, shape = MaterialTheme.shapes.medium)
-            .padding(10.dp)
-    ) {
-        Text(text = "Question: ${response.question}", fontWeight = FontWeight.Bold)
-        Text(text = "Selected Option: ${response.selectedOption}", fontSize = 14.sp)
     }
 }
